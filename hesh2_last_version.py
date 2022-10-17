@@ -21,25 +21,32 @@ elif choise == 2:
     start_time = time.time()
 
     def ch1(thread, calc):
-        for i in product("abcdefghijklmnopqrstuvwxyz", repeat=5):
+        for i in product("abcdefghijklm", repeat=5):
+            if hash_("".join(i).encode("utf-8")).hexdigest() == first_hash:
+                print("".join(i), (time.time() - start_time))
+                break
+        for i in product("nopqrstuvwxyz", repeat=5):
             if hash_("".join(i).encode("utf-8")).hexdigest() == first_hash:
                 print("".join(i), (time.time() - start_time))
                 break
     def ch2(thread, calc):
-        for i in product("abcdefghijklmnopqrstuvwxyz", repeat=5):
+        for i in product("abcdefghijklm", repeat=5):
+            if hash_("".join(i).encode("utf-8")).hexdigest() == second_hash:
+                print("".join(i), (time.time() - start_time))
+                break
+        for i in product("nopqrstuvwxyz", repeat=5):
             if hash_("".join(i).encode("utf-8")).hexdigest() == second_hash:
                 print("".join(i), (time.time() - start_time))
                 break
     def ch3(thread, calc):
-        for i in product("abcdefghijklmnopqrstuvwxyz", repeat=5):
+        for i in product("abcdefghijklxm", repeat=5):
             if hash_("".join(i).encode("utf-8")).hexdigest() == thirst_hash:
                 print("".join(i), (time.time() - start_time))
                 break
-
-    thr1 = Thread(target = ch1, args='abcdefghijklm').start()
-    thr2 = Thread(target = ch1, args='nopqrstuvwxyz').start()
-    thr3 = Thread(target = ch2, args='abcdefghijklm').start()
-    thr4 = Thread(target = ch2, args='nopqrstuvwxyz').start()
-    thr5 = Thread(target = ch3, args='abcdefghijklm').start()
-    thr6 = Thread(target = ch3, args='nopqrstuvwxyz').start()
-print("Общее время:", start_time)
+        for i in product("nopqrstuvwyz", repeat=5):
+            if hash_("".join(i).encode("utf-8")).hexdigest() == thirst_hash:
+                print("".join(i), (time.time() - start_time))
+                break
+    thr1 = Thread(target = ch1, args=(1, 5)).start()
+    thr2 = Thread(target = ch2, args=(5, 10)).start()
+    thr3 = Thread(target = ch3, args=(1, 5)).start()
