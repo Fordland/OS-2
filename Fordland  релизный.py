@@ -1,0 +1,56 @@
+import time
+from itertools import product
+from hashlib import sha256 as hash_
+import threading
+print("________________Выберите в каком потоке расшифровать:________________")
+print("________________Однопоток                  Многопоток________________")
+print("___________________[1]_________________________[2]___________________")
+choise = int(input())
+first_hash = '74e1bb62f8dabb8125a58852b63bdf6eaef667cb56ac7f7cdba6d7305c50a22f', '3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b', '1115dd800feaacefdf481f1f9070374a2a81e27880f187396db67958b207cbad'
+if choise == 1:
+    timee = time.time()
+    for j in range(3):
+        start_time = time.time()
+        for i in product("abcdefghijklmnopqrstuvwxyz", repeat=5):
+            if hash_("".join(i).encode("utf-8")).hexdigest() == first_hash[j]:
+                print("".join(i), (time.time() - start_time))
+                break
+    print(time.time() - timee)
+elif choise == 2:
+    second_hash = '74e1bb62f8dabb8125a58852b63bdf6eaef667cb56ac7f7cdba6d7305c50a22f', '3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b', '1115dd800feaacefdf481f1f9070374a2a81e27880f187396db67958b207cbad'
+    start_time = time.time()
+    void_list = []
+    def sha1(thread, calc):
+        for i in product("abcdefghijklmnopqrstuvwxyz", repeat=5):
+            x = hash_("".join(i).encode("utf-8")).hexdigest()
+            if x == second_hash[0]:
+                if x not in void_list:
+                    print("".join(i), (time.time() - start_time))
+                    void_list.append(x)
+            elif x == second_hash[1]:
+                if x not in void_list:
+                    print("".join(i), (time.time() - start_time))
+                    void_list.append(x)
+            elif x == second_hash[2]:
+                if x not in void_list:
+                    print("".join(i), (time.time() - start_time))
+                    void_list.append(x)
+
+    def sha2(thread, calc):
+        for i in product("zyxwvutsrqponmlkjihgfedcba", repeat=5):
+            x = hash_("".join(i).encode("utf-8")).hexdigest()
+            if x == second_hash[0]:
+                if x not in void_list:
+                    print("".join(i), (time.time() - start_time))
+                    void_list.append(x)
+            elif x == second_hash[1]:
+                if x not in void_list:
+                    print("".join(i), (time.time() - start_time))
+                    void_list.append(x)
+            elif x == second_hash[2]:
+                if x not in void_list:
+                    print("".join(i), (time.time() - start_time))
+                    void_list.append(x)
+
+thr1 = threading.Thread(target = sha1, args=(1, 270)).start()
+thr2 = threading.Thread(target = sha2, args=(2, 270)).start()
