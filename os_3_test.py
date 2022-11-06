@@ -1,11 +1,11 @@
 import random
 import time
 import threading
-import keyboard
-import sys
+from pynput import keyboard
 stack = []
 give = []
 work = 1
+working = True
 def con(thread, calc):
     time.sleep(5)
     while True:
@@ -18,10 +18,10 @@ def con(thread, calc):
                 else:
                     time.sleep(0.1)
 
+def on_press(key):
+
 def prod(thread, calc):
-    if keyboard.is_pressed('q'):
-        return 0
-    else:
+    while working == True:
         for i in range(0, 201):
             stack.append(int(random.randrange(1, 101, 1)))
             print("Производитель",random.randrange(1, 4),"добавил", stack[i])
@@ -29,3 +29,4 @@ def prod(thread, calc):
 
 prodd = threading.Thread(target = prod, args=(1, 270)).start()
 workk = threading.Thread(target = con, args=(1, 270)).start()
+wait = threading.Thread(target = on_press, args=(1, 270)).start()
